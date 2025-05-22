@@ -6,6 +6,17 @@
     <meta name="description" content="Minecraft Block of the Day">
     <title>Minecraft Block of the Day</title>
     <link rel="stylesheet" href="/static/styles.css">
+
+    <meta property="og:title" content="Minecraft Block of the Day: <%= block.name %>" />
+    <meta property="og:description" content="Today's Block: <%= block.name %>!" />
+    <meta property="og:image" content="<%= block.image %>" />
+    <meta property="og:url" content="https://lohiv.com/block-of-the-day/" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Minecraft Block of the Day: <%= block.name %>" />
+    <meta name="twitter:description" content="Today's Block: <%= block.name %>!" />
+    <meta name="twitter:image" content="<%= block.image %>" />
 </head>
 <body>
     <header>
