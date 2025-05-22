@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Minecraft Block of the Day">
+    <title>Minecraft Block of the Day</title>
+</head>
+<body>
+    <header>
+        <h1>Minecraft Block of the Day</h1>
+    </header>
+    <main>
+        <div class="block-container">
+            <h1>Today's Block:</h1>
+            <h2><span id="block-name"></span></h2>
+            <img id="block-image" class="block-image" src="" alt="Minecraft Block">
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Lohi | All data fetched from <a href="https://minecraft.wiki">minecraft.wiki</a> | Fully static version of: <a href="https://lohiv.com/block-of-the-day">block of the day!</a></p>
+    </footer>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #444;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #eeeeee;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-top: 1px solid #ddd;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                font-size:0.8rem;
+            }
+        }
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+        footer {
+            background-color: #f9f9f9;
+            color: #444;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid #ddd;
+        }
+        .block-container {
+            margin: 2rem auto;
+            max-width: 500px;
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .block-image {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch a random block from the Minecraft Wiki "List of blocks" section
+            async function getRandomBlock() {
+                try {
+                    const sURL = 'https://minecraft.wiki';
+
+                    const response = await fetch(`${sURL}/w/Block`);
+                    const html = await response.text();
+
+                    // Parse the HTML response
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    // Select all <li> items under the first "List of blocks" section, ignoring rest of the special blocks
+                    const blockList = doc.querySelector(
+                        'div.div-col.columns.column-width'
+                    ).querySelectorAll('li');
+
+                    if (blockList.length === 0) {
+                        console.error('No blocks found.');
+                        return {
+                            error: 'No blocks found.',
+                        };
+                    }
+
+                    // Construct an object array of block objects
+                    const blocks = Array.from(blockList).map((li) => {
+                        const blockName = li.textContent.trim();
+                        const imgElement = li.querySelector('img');
+
+                        const imgSrc = imgElement
+                        // Messy way to get the image URL, but it works
+                        // Converting from: "/images/thumb/xyz.png/30px-xyz.png?1234" to "https://minecraft.wiki/images/xyz.png"
+                        ? `${sURL}/images/${imgElement.getAttribute('src').split('thumb/')[1]?.split('/')[0]}`
+                        : null;
+
+                        return {
+                            name: blockName,
+                            image: imgSrc,
+                        };
+                    });
+
+                    // Return block array
+                    // Select a random block based on the current date
+                    const today = new Date();
+                    const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+
+                    const randomBlock = blocks[seed % blocks.length]; // Pick
+
+                    document.getElementById('block-name').textContent = randomBlock.name;
+                    document.getElementById('block-image').src = randomBlock.image;
+
+                } catch (error) {
+                    console.error('Error fetching blocks:', error);
+                    return {
+                        error: 'Error fetching blocks.',
+                    };
+                }
+            }
+
+            getRandomBlock();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Minecraft Block of the Day">
+    <title>Minecraft Block of the Day</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Minecraft Block of the Day</h1>
+    </header>
+    <main>
+        <div class="block-container">
+            <h1>Today's Block:</h1>
+            <h2><span id="block-name"><%= block.name %></span></h2>
+            <img id="block-image" class="block-image" src="<%= block.image %>" alt="Minecraft Block">
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2025 Lohi | All data fetched from <a href="https://minecraft.wiki">minecraft.wiki</a> | Download the local version: <a href="https://lohiv.com/block-of-the-day/static/index.html" download="block-of-the-day.html">here!</a></p>
+    </footer>
+</body>
+</html>
