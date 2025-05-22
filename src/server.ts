@@ -41,7 +41,7 @@ app.get('/', async (req, res) => {
 
 app.get('/api', async (req, res) => {
     try {
-        res.status(200).json(getBlock()); // Send JSON response
+        res.status(200).json(await getBlock()); // Send JSON response
 
     } catch (error) {
         // If the error is a RequestError, handle it

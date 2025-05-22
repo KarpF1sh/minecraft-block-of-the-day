@@ -39,7 +39,7 @@ app.get('/', async (req, res) => {
 });
 app.get('/api', async (req, res) => {
     try {
-        res.status(200).json((0, fetchBlocks_1.getBlock)()); // Send JSON response
+        res.status(200).json(await (0, fetchBlocks_1.getBlock)()); // Send JSON response
     }
     catch (error) {
         // If the error is a RequestError, handle it
