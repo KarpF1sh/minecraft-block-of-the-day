@@ -25,6 +25,7 @@ res.locals.basePath = BASE_PATH.endsWith('/') && BASE_PATH.length > 1
   next();
 });
 
+// TODO: Unify the error handling in the app
 app.get('/', async (req, res) => {
     try {
         const block = await getBlock(); // Fetch blocks
