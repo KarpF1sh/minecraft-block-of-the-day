@@ -4,16 +4,14 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        STATIC_DIR: ${STATIC_DIR}
         SERVER_PORT: ${SERVER_PORT}
     ports:
       - "2556:3000"
     volumes:
       - ./src:/usr/src/app/src
-      -  ${STATIC_DIR}:/usr/src/app/static-out
+      -  ${STATIC_DIR}:/usr/src/app/static
     environment:
       SERVER_PORT: ${SERVER_PORT}
-      STATIC_DIR: ${STATIC_DIR}
       NODE_ENV: production
     restart: always
 
