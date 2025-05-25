@@ -8,6 +8,7 @@ services:
     volumes:
       - ./src:/usr/src/app/src
     environment:
+      STATIC_DI: ${NODE_ENV}
       NODE_ENV: production
     restart: always
 
