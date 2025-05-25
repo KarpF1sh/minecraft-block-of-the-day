@@ -19,7 +19,9 @@ app.set('views', path.join(__dirname, '../views'));
 
 // Set the base path for the application
 app.use((req, res, next) => {
-  res.locals.basePath = BASE_PATH;
+res.locals.basePath = BASE_PATH.endsWith('/') && BASE_PATH.length > 1
+    ? BASE_PATH.slice(0, -1)
+    : BASE_PATH;
   next();
 });
 
