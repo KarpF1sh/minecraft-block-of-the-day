@@ -10,6 +10,7 @@ services:
       - "2556:3000"
     volumes:
       - ./src:/usr/src/app/src
+      -  ${STATIC_DIR}:/app/static
     environment:
       SERVER_PORT: ${SERVER_PORT}
       STATIC_DIR: ${STATIC_DIR}

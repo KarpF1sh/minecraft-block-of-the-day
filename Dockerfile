@@ -18,7 +18,7 @@ RUN npm install
 # Copy the rest of the application files
 COPY . .
 
-RUN mkdir -p ${STATIC_DIR} && cp -r ./public/static/* ${STATIC_DIR}/
+RUN cp -r ./public/static/* static/
 
 # Expose the port the app runs on
 EXPOSE 3000
