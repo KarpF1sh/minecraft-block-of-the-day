@@ -5,17 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Minecraft Block of the Day">
     <title>Minecraft Block of the Day</title>
-
-    <meta property="og:title" content="Minecraft Block of the Day: <%= block.name %>" />
-    <meta property="og:description" content="Today's Block: <%= block.name %>!" />
-    <meta property="og:image" content="<%= block.image %>" />
-    <meta property="og:url" content="https://lohiv.com/block-of-the-day/" />
-    <meta property="og:type" content="website" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Minecraft Block of the Day: <%= block.name %>" />
-    <meta name="twitter:description" content="Today's Block: <%= block.name %>!" />
-    <meta name="twitter:image" content="<%= block.image %>" />
 </head>
 <body>
     <header>
@@ -131,7 +120,10 @@
                     const today = new Date();
                     const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
 
-                    const randomBlock = blocks[seed % blocks.length]; // Pick
+                    // Deterministic pseudo-random index from the seed
+                    const index = Math.floor((Math.sin(seed) * 10000 % 1) * blocks.length);
+
+                    const randomBlock = blocks[index]; // Pick
 
                     document.getElementById('block-name').textContent = randomBlock.name;
                     document.getElementById('block-image').src = randomBlock.image;

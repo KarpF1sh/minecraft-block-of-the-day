@@ -1,0 +1,22 @@
+name: Deploy Static Files
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted  # Make sure your server is configured as a GitHub Actions runner
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Start Docker Compose
+        run: docker-compose up -d --build
+
+      - name: Copy static files
+        run: |
+          mkdir -p ${{secrets.DEPLOY_PATH}}/static
+          cp -r ./public/static/* ${{secrets.DEPLOY_PATH}}/static/

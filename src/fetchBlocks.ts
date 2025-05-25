@@ -36,10 +36,15 @@ const cache = {
 
 export async function getBlock(): Promise<Block> {
     const today = new Date();
+     // Unique seed based on the current date
     const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
 
-    const blocks: Block[] = await getBlocksCache(); // Fetch
-    return blocks[seed % blocks.length]; // Pick
+    // Fetch
+    const blocks: Block[] = await getBlocksCache();
+
+    // Deterministic pseudo-random index from the seed
+    const index = Math.floor((Math.sin(seed) * 10000 % 1) * blocks.length);
+    return blocks[index];
 }
 
 // Only fetch blocks if the cache is invalid, so we don't hit the wiki server too often

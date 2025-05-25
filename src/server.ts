@@ -4,10 +4,11 @@ import { getBlock, Block, RequestError } from './fetchBlocks';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
-const SERVERPORT = process.env.SERVERPORT;
+const SERVER_PORT = process.env.SERVERPORT;
 
 const app = express();
-const port = SERVERPORT || 3000;
+const port = SERVER_PORT || 3000;
+const BASE_PATH = process.env.BASE_PATH || '';
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '../public')));
@@ -15,6 +16,12 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
+
+// Set the base path for the application
+app.use((req, res, next) => {
+  res.locals.basePath = BASE_PATH;
+  next();
+});
 
 app.get('/', async (req, res) => {
     try {
@@ -63,5 +70,9 @@ app.get('/api', async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    if (process.env.NODE_ENV === 'production') {
+        console.log(`Server running in production mode on port ${port}`);
+    } else {
+        console.log(`Server running at http://localhost:${port}`);
+    }
 });

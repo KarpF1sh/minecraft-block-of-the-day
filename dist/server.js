@@ -8,14 +8,20 @@ const path_1 = __importDefault(require("path"));
 const fetchBlocks_1 = require("./fetchBlocks");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config({ path: path_1.default.join(__dirname, '../.env') });
-const SERVERPORT = process.env.SERVERPORT;
+const SERVER_PORT = process.env.SERVERPORT;
 const app = (0, express_1.default)();
-const port = SERVERPORT || 3000;
+const port = SERVER_PORT || 3000;
+const BASE_PATH = process.env.BASE_PATH || '';
 // Serve static files
 app.use(express_1.default.static(path_1.default.join(__dirname, '../public')));
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.join(__dirname, '../views'));
+// Set the base path for the application
+app.use((req, res, next) => {
+    res.locals.basePath = BASE_PATH;
+    next();
+});
 app.get('/', async (req, res) => {
     try {
         const block = await (0, fetchBlocks_1.getBlock)(); // Fetch blocks
