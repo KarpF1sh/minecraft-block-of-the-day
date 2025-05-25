@@ -8,7 +8,8 @@ services:
     volumes:
       - ./src:/usr/src/app/src
     environment:
-      STATIC_DIR: ${NODE_ENV}
+      SERVER_PORT: ${SERVER_PORT}
+      STATIC_DIR: ${STATIC_DIR}
       NODE_ENV: production
     restart: always
 

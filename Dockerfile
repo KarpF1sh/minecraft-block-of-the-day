@@ -1,5 +1,9 @@
 FROM node:18
 
+# Set environment variables
+ENV STATIC_DIR=${STATIC_DIR}
+ENV SERVER_PORT=${SERVER_PORT}
+
 # Set the working directory
 WORKDIR /usr/src/app
 
