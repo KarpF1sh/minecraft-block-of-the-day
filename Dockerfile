@@ -18,7 +18,7 @@ RUN npm install
 # Copy the rest of the application files
 COPY . .
 
-COPY ./public/static/* ./static/
+COPY ./public/static/* ./static-out/
 
 # Expose the port the app runs on
 EXPOSE 3000
