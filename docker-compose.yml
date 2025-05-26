@@ -8,7 +8,7 @@ services:
     ports:
       - "${DOCKER_PORT}:${SERVER_PORT}"
     volumes:
-      - ./:/usr/src/app
+      - ./src:/usr/src/app/src
     environment:
       SERVER_PORT: ${SERVER_PORT}
       NODE_ENV: production
