@@ -1,9 +1,5 @@
 FROM node:18
 
-ARG SERVER_PORT
-# Set environment variables
-ENV SERVER_PORT=${SERVER_PORT}
-
 # Set the working directory
 WORKDIR /usr/src/app
 
@@ -15,8 +11,6 @@ RUN npm install
 
 # Copy the rest of the application files
 COPY . .
-
-COPY ./public/static/* ./static/
 
 # Expose the port the app runs on
 EXPOSE ${SERVER_PORT}

@@ -10,7 +10,7 @@
     <meta property="og:title" content="Minecraft Block of the Day!" />
     <meta property="og:description" content="Today's Block: <%= block.name %>!" />
     <meta property="og:image" content="<%= block.image %>" />
-    <meta property="og:url" content="https://lohiv.com/block-of-the-day/" />
+    <meta property="og:url" content="<%= basePath %>" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -30,7 +30,7 @@
         </div>
     </main>
     <footer>
-        <p>&copy; 2025 Lohi | All data fetched from <a href="https://minecraft.wiki">minecraft.wiki</a> | Download the local version: <a href="https://lohiv.com/block-of-the-day/static/index.html" download="block-of-the-day.html">here!</a></p>
+        <p>&copy; 2025 Lohi | All data fetched from <a href="https://minecraft.wiki">minecraft.wiki</a> | Download the local version: <a href="<%= basePath %>/static/index.html" download="block-of-the-day.html">here!</a></p>
         <p><a href="<%= basePath %>/api">API</a></p>
     </footer>
 </body>

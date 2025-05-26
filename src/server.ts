@@ -4,25 +4,25 @@ import { getBlock, Block, RequestError } from './fetchBlocks';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
-const SERVER_PORT = process.env.SERVERPORT;
 
-const app = express();
-const port = SERVER_PORT || 3000;
+const SERVER_PORT = process.env.SERVERPORT || 3000;
 const BASE_PATH = process.env.BASE_PATH || '';
 
+const app = express();
+
 // Serve static files
-app.use(express.static(path.join(__dirname, '../public')));
+app.use('/static', express.static(path.join(__dirname, '../public/static/')));
 
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 
-// Set the base path for the application
+// Set the base path for the app
 app.use((req, res, next) => {
-res.locals.basePath = BASE_PATH.endsWith('/') && BASE_PATH.length > 1
+    res.locals.basePath = BASE_PATH.endsWith('/') && BASE_PATH.length > 1
     ? BASE_PATH.slice(0, -1)
     : BASE_PATH;
-  next();
+    next();
 });
 
 // TODO: Unify the error handling in the app
@@ -72,10 +72,10 @@ app.get('/api', async (req, res) => {
     }
 });
 
-app.listen(port, () => {
+app.listen(SERVER_PORT, () => {
     if (process.env.NODE_ENV === 'production') {
-        console.log(`Server running in production mode on port ${port}`);
+        console.log(`Server running in production mode on port ${SERVER_PORT}`);
     } else {
-        console.log(`Server running at http://localhost:${port}`);
+        console.log(`Server running at http://localhost:${SERVER_PORT}`);
     }
 });
