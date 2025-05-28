@@ -36,7 +36,9 @@ async function getBlock() {
     // Fetch
     const blocks = await getBlocksCache();
     // Deterministic pseudo-random index from the seed
-    const index = Math.floor((Math.sin(seed) * 10000 % 1) * blocks.length);
+    const index = Math.floor(Math.abs((Math.sin(seed) * 10000 % 1)) * blocks.length);
+    console.log(`index: ${index}, blocks: ${blocks.length}`);
+    console.log(blocks[index]);
     return blocks[index];
 }
 // Only fetch blocks if the cache is invalid, so we don't hit the wiki server too often

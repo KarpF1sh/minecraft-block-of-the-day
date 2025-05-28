@@ -11,13 +11,12 @@ dotenv_1.default.config({ path: path_1.default.join(__dirname, '../.env') });
 const SERVER_PORT = process.env.SERVERPORT || 3000;
 const BASE_PATH = process.env.BASE_PATH || '';
 const app = (0, express_1.default)();
-console.log(__dirname);
 // Serve static files
 app.use('/static', express_1.default.static(path_1.default.join(__dirname, '../public/static/')));
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.join(__dirname, '../views'));
-// Set the base path for the application
+// Set the base path for the app
 app.use((req, res, next) => {
     res.locals.basePath = BASE_PATH.endsWith('/') && BASE_PATH.length > 1
         ? BASE_PATH.slice(0, -1)

@@ -43,7 +43,7 @@ export async function getBlock(): Promise<Block> {
     const blocks: Block[] = await getBlocksCache();
 
     // Deterministic pseudo-random index from the seed
-    const index = Math.floor((Math.sin(seed) * 10000 % 1) * blocks.length);
+    const index = Math.floor(Math.abs((Math.sin(seed) * 10000 % 1)) * blocks.length);
     return blocks[index];
 }
 
